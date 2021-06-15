@@ -1,0 +1,857 @@
+#SingleInstance,Force
+#InstallKeybdHook
+#UseHook On
+#InstallMouseHook
+#NoEnv
+#KeyHistory 0
+CoordMode,Mouse,Screen
+CoordMode,Pixel,Screen
+PID := DllCall("GetCurrentProcessId")
+Process, Priority, %PID%, Realtime
+ListLines, Off
+SetBatchLines, -1
+SetWinDelay,-1
+SetControlDelay,-1
+SetDefaultMouseSpeed,0
+setformat,float,0.1
+Hotkey1:="Numpad9"
+Hotkey2:="Numpad5"
+ 
+Gui, Show, w380 h480,
+Gui, Font, cWhite
+Gui, Color, 390202
+ 
+Gui Add, GroupBox, cRed x10 y10 w180 h85, Characters
+Gui Add, CheckBox, x20 y30 w100 h20 voverlayActive14, Warden
+Gui Add, CheckBox, x20 y50 w100 h20 voverlayActive9, Blackprior
+Gui Add, CheckBox, x20 y70 w100 h20 voverlayActive1, All Others
+ 
+Gui Add, GroupBox, cRed x10 y95 w180 h225, Scripts for 1x1/2x2/4x4/
+Gui Add, CheckBox, x20 y110 w140 h20 voverlayActive2, Dodge B/Unblockables -
+Gui Add, CheckBox, x20 y130 w160 h20 voverlayActive3, Flip Bashes/Unblockables
+Gui Add, Button, x160 y110 w25 h18 gButtonH, ?
+Gui Add, CheckBox, x20 y150 w80 h20 voverlayActive5, Auto Block -
+Gui Add, CheckBox, x20 y170 w80 h20 voverlayActive6, Auto Parry -
+Gui Add, CheckBox, x20 y190 w82 h20 voverlayActive11, Auto Deflect
+Gui Add, Text, x25 y216 w10 h15, -
+Gui Add, Text, x25 y236 w10 h15, -
+Gui Add, Text, x25 y256 w10 h15, -
+Gui Add, CheckBox, x36 y216 w140 h20 voverlayActive16, Light Attack on deflect
+Gui Add, CheckBox, x36 y236 w140 h20 voverlayActive17, Heavy Attack on deflect
+Gui Add, CheckBox, x36 y256 w140 h20 voverlayActive20, Guardbrake on deflect
+Gui Add, CheckBox, x20 y278 w80 h20 voverlayActive12, Auto Flip -
+Gui Add, CheckBox, x20 y298 w80 h18 voverlayActive4, Auto CC -
+Gui Add, Button, x104 y150 w25 h18 gButtonH4, ?
+Gui Add, Button, x104 y170 w25 h18 gButtonH5, ?
+Gui Add, Button, x104 y190 w25 h18 gButtonH6, ?
+Gui Add, Button, x104 y278 w25 h18 gButtonH7, ?
+Gui Add, Button, x104 y298 w25 h18 gButtonH8, ?
+ 
+Gui Add, GroupBox, cRed x200 y185 w170 h95, Pepega Scripts
+Gui Add, CheckBox, x210 y198 w85 h20 voverlayActive10, Auto CGBS -
+Gui Add, CheckBox, x210 y218 w115 h20 voverlayActive21, Auto LMB on GB'S -
+Gui Add, CheckBox, x210 y238 w110 h20 voverlayActive15, Show Enemy Box -
+Gui Add, CheckBox, x210 y258 w110 h20 voverlayActive19, [LShift] - Switcher -
+Gui Add, Button, x325 y258 w25 h18 gButtonH17, ?
+Gui Add, Button, x292 y198 w25 h18 gButtonH3, ?
+Gui Add, Button, x325 y238 w25 h18 gButtonH9, ?
+Gui Add, Button, x330 y218 w25 h18 gButtonA1, ?
+ 
+Gui Add, GroupBox, cRed x200 y10 w170 h177, Hotkeys
+Gui Add, Text, x220 y25 w130 h15, Activate - [F1]
+Gui Add, Text, x220 y41 w140 h15, Restart Program - [F3]
+Gui Add, Text, x220 y54 w140 h15, Pause/Resume - [F4 or Z]
+Gui Add, Text, x220 y67 w140 h15, Prarry/Deflect/Flip/CC - [C]
+Gui Add, Text, x220 y81 w160 h15, Dodge B/Unbl On/Off - [F2]
+ 
+Gui, Add, Text, x220 y99 w130 h15, [Blackprior] - key for flip:
+Gui, Add, Hotkey, x220 y119 w60 h20 vHotkey1, %Hotkey1%
+Gui, Add, Text, x220 y144 w140 h15, [GuardBrake] - Counter key:
+Gui, Add, Hotkey, x220 y163 w60 h20 vHotkey2, %Hotkey2%
+ 
+Gui Add, GroupBox, cRed x200 y280 w170 h45, Resolution (ingame)
+Gui Add, Text, x205 y302 w35 h20, X:
+Gui Add, Edit, c390202 x220 y299 w45 h20 Center vres1, 0
+Gui Add, Text, x272 y302 w35 h20, Y:
+Gui Add, Edit, c390202 x287 y299 w45 h20 Center vres2, 0
+Gui Add, Button, x339 y301 w20 h16 gButtonH16, ok
+ 
+Gui Add, GroupBox, cRed x10 y320 w180 h155, Scripts
+Gui Add, Edit, c390202 x150 y335 w27 h17 vLeft, 0
+Gui Add, Edit, c390202 x150 y355 w27 h17 vRight, 0
+Gui Add, Text, x20 y335 w128 h20, Delay on left deflect in ms:
+Gui Add, Text, x20 y355 w130 h20, Delay on right deflect in ms:
+Gui Add, Text, x20 y395 w130 h18, How to use Dodge Delay -
+Gui Add, Button, x150 y395 w27 h16 gButtonH2, ?
+Gui Add, Text, x20 y375 w120 h20, Dodge Delay in ms:
+Gui Add, Edit, c390202 x150 y375 w27 h17 vPause, 0
+Gui Add, CheckBox, x20 y414 w160 h20 voverlayActive8, RMouse Button after dodge
+Gui Add, CheckBox, x20 y434 w160 h20 voverlayActive18, LMouse Button after dodge
+Gui Add, Text, x20 y454 w130 h20, Delay before clicking in ms:
+Gui Add, Edit, c390202 x150 y454 w27 h17 vPause2, 0
+ 
+Gui Add, GroupBox, cRed x200 y325 w170 h150, Help and Settings
+Gui Add, Button, x225 y345 w120 h20 gButton_HowTo, How to use
+Gui Add, Button, x225 y370 w120 h20 gButtonSS, Secret Settings
+Gui Add, Button, x225 y395 w120 h20 gButtonH11, Load Settings
+Gui Add, Button, x225 y420 w120 h20 gButtonH12, Save Settings
+Gui Add, Button, x225 y445 w120 h20 gButtonH10, Apply Settings
+ 
+SetWorkingDir %A_ScriptDir%
+return
+ 
+ButtonH16:
+{
+GuiControlget, res1
+GuiControlget, res2
+;#calculateenemybox
+x8 := (res1 / 1920) * 860
+y8 := (res2 / 1080) * 80
+x9 := (res1 / 1920) * 1075
+y9 := (res2 / 1080) * 425
+;#calculatemybox
+x18 := (res1 / 1920) * 680
+y18 := (res2 / 1080) * 300
+x19 := (res1 / 1920) * 820
+y19 := (res2 / 1080) * 510
+;#calculateenemychanges
+B55 := res1/1920
+Y55 := res2/1080
+if(res1=0||res2=0){
+Msgbox, Resolution cant be %res1% x %res2%
+reload
+}
+if(res1<res2){
+Msgbox, Resolution cant be %res1% x %res2%
+reload
+}
+if(res1>res2){
+Msgbox, Resolution updated, new resolution %res1% x %res2%
+}
+}
+return
+ 
+ButtonH10:
+{
+GuiControlGet,New_Key1,1:,Hotkey1
+GuiControlGet,New_Key2,1:,Hotkey2
+if(New_Key1!=Hotkey1)
+{
+Hotkey1:=New_key1
+}
+if(New_Key2!=Hotkey2)
+{
+Hotkey2:=New_key2
+}
+GuiControlget, Pause
+GuiControlget, Pause2
+GuiControlget, Left
+GuiControlget, Right
+GuiControlget, overlayActive21
+GuiControlget, overlayActive9
+GuiControlget, overlayActive19
+GuiControlget, overlayActive17
+GuiControlget, overlayActive16
+GuiControlget, overlayActive18
+GuiControlget, overlayActive6
+GuiControlget, overlayActive11
+GuiControlget, overlayActive12
+GuiControlget, overlayActive4
+GuiControlget, overlayActive2
+GuiControlget, overlayActive3
+GuiControlget, overlayActive14
+GuiControlget, overlayActive8
+GuiControlget, overlayActive1
+GuiControlget, overlayActive5
+GuiControlget, overlayActive10
+GuiControlget, overlayActive15
+GuiControlget, overlayActive20
+msgbox,0, Successfully, Settings successfully updated!
+}
+return
+ 
+ButtonH11:
+{
+IniRead, Pause2, %A_WorkingDir%\Config.ini, Options, Pause2
+GuiControl,,Pause2, %Pause2%
+IniRead, Pause, %A_WorkingDir%\Config.ini, Options, Pause
+GuiControl,,Pause, %Pause%
+IniRead, Left, %A_WorkingDir%\Config.ini, Options, Left
+GuiControl,,Left, %Left%
+IniRead, Right, %A_WorkingDir%\Config.ini, Options, Right
+GuiControl,,Right, %Right%
+IniRead, res1, %A_WorkingDir%\Config.ini, Options, res1
+GuiControl,,res1, %res1%
+IniRead, res2, %A_WorkingDir%\Config.ini, Options, res2
+GuiControl,,res2, %res2%
+IniRead, overlayActive20, %A_WorkingDir%\Config.ini, Options, overlayActive20
+GuiControl,,overlayActive20, %overlayActive20%
+IniRead, overlayActive19, %A_WorkingDir%\Config.ini, Options, overlayActive19
+GuiControl,,overlayActive19, %overlayActive19%
+IniRead, overlayActive18, %A_WorkingDir%\Config.ini, Options, overlayActive18
+GuiControl,,overlayActive18, %overlayActive18%
+IniRead, overlayActive17, %A_WorkingDir%\Config.ini, Options, overlayActive17
+GuiControl,,overlayActive17, %overlayActive17%
+IniRead, overlayActive16, %A_WorkingDir%\Config.ini, Options, overlayActive16
+GuiControl,,overlayActive16, %overlayActive16%
+IniRead, overlayActive6, %A_WorkingDir%\Config.ini, Options, overlayActive6
+GuiControl,,overlayActive6, %overlayActive6%
+IniRead, overlayActive11, %A_WorkingDir%\Config.ini, Options, overlayActive11
+GuiControl,,overlayActive11, %overlayActive11%
+IniRead, overlayActive12, %A_WorkingDir%\Config.ini, Options, overlayActive12
+GuiControl,,overlayActive12, %overlayActive12%
+IniRead, overlayActive4, %A_WorkingDir%\Config.ini, Options, overlayActive4
+GuiControl,,overlayActive4, %overlayActive4%
+IniRead, overlayActive2, %A_WorkingDir%\Config.ini, Options, overlayActive2
+GuiControl,,overlayActive2, %overlayActive2%
+IniRead, overlayActive3, %A_WorkingDir%\Config.ini, Options, overlayActive3
+GuiControl,,overlayActive3, %overlayActive3%
+IniRead, overlayActive14, %A_WorkingDir%\Config.ini, Options, overlayActive14
+GuiControl,,overlayActive14, %overlayActive14%
+IniRead, overlayActive8, %A_WorkingDir%\Config.ini, Options, overlayActive8
+GuiControl,,overlayActive8, %overlayActive8%
+IniRead, overlayActive1, %A_WorkingDir%\Config.ini, Options, overlayActive1
+GuiControl,,overlayActive1, %overlayActive1%
+IniRead, overlayActive5, %A_WorkingDir%\Config.ini, Options, overlayActive5
+GuiControl,,overlayActive5, %overlayActive5%
+IniRead, overlayActive10, %A_WorkingDir%\Config.ini, Options, overlayActive10
+GuiControl,,overlayActive10, %overlayActive10%
+IniRead, overlayActive15, %A_WorkingDir%\Config.ini, Options, overlayActive15
+GuiControl,,overlayActive15, %overlayActive15%
+IniRead, overlayActive21, %A_WorkingDir%\Config.ini, Options, overlayActive21
+GuiControl,,overlayActive21, %overlayActive21%
+IniRead, overlayActive9, %A_WorkingDir%\Config.ini, Options, overlayActive9
+GuiControl,,overlayActive9, %overlayActive9%
+IniRead, Hotkey1, %A_WorkingDir%\Config.ini, Options, Hotkey1
+GuiControl,,Hotkey1, %Hotkey1%
+IniRead, Hotkey2, %A_WorkingDir%\Config.ini, Options, Hotkey2
+GuiControl,,Hotkey2, %Hotkey2%
+msgbox,0, Successfully, Settings successfully loaded!
+}
+return
+ 
+ButtonH12:
+{
+IniWrite, %Pause%, %A_WorkingDir%\Config.ini, Options, Pause
+IniWrite, %Pause2%, %A_WorkingDir%\Config.ini, Options, Pause2
+IniWrite, %Left%, %A_WorkingDir%\Config.ini, Options, Left
+IniWrite, %Right%, %A_WorkingDir%\Config.ini, Options, Right
+IniWrite, %res1%, %A_WorkingDir%\Config.ini, Options, res1
+IniWrite, %res2%, %A_WorkingDir%\Config.ini, Options, res2
+IniWrite, %overlayActive20%, %A_WorkingDir%\Config.ini, Options, overlayActive20
+IniWrite, %overlayActive19%, %A_WorkingDir%\Config.ini, Options, overlayActive19
+IniWrite, %overlayActive18%, %A_WorkingDir%\Config.ini, Options, overlayActive18
+IniWrite, %overlayActive17%, %A_WorkingDir%\Config.ini, Options, overlayActive17
+IniWrite, %overlayActive16%, %A_WorkingDir%\Config.ini, Options, overlayActive16
+IniWrite, %overlayActive6%, %A_WorkingDir%\Config.ini, Options, overlayActive6
+IniWrite, %overlayActive11%, %A_WorkingDir%\Config.ini, Options, overlayActive11
+IniWrite, %overlayActive12%, %A_WorkingDir%\Config.ini, Options, overlayActive12
+IniWrite, %overlayActive4%, %A_WorkingDir%\Config.ini, Options, overlayActive4
+IniWrite, %overlayActive2%, %A_WorkingDir%\Config.ini, Options, overlayActive2
+IniWrite, %overlayActive3%, %A_WorkingDir%\Config.ini, Options, overlayActive3
+IniWrite, %overlayActive14%, %A_WorkingDir%\Config.ini, Options, overlayActive14
+IniWrite, %overlayActive8%, %A_WorkingDir%\Config.ini, Options, overlayActive8
+IniWrite, %overlayActive1%, %A_WorkingDir%\Config.ini, Options, overlayActive1
+IniWrite, %overlayActive5%, %A_WorkingDir%\Config.ini, Options, overlayActive5
+IniWrite, %overlayActive10%, %A_WorkingDir%\Config.ini, Options, overlayActive10
+IniWrite, %overlayActive15%, %A_WorkingDir%\Config.ini, Options, overlayActive15
+IniWrite, %overlayActive21%, %A_WorkingDir%\Config.ini, Options, overlayActive21
+IniWrite, %overlayActive9%, %A_WorkingDir%\Config.ini, Options, overlayActive9
+IniWrite, %Hotkey1%, %A_WorkingDir%\Config.ini, Options, Hotkey1
+IniWrite, %Hotkey2%, %A_WorkingDir%\Config.ini, Options, Hotkey2
+msgbox,0, Successfully, Settings successfully saved!
+}
+return
+ 
+ButtonA1:
+{
+Msgbox,0, How this works, When enemy gonna do guardbrake at you script will do light attack as counterguardbrake, works 50-50 and only in 1x1
+}
+return
+ 
+Button_HowTo:
+{
+Msgbox,0, How To Use, FlorasSecret#9666 - Discord. - Only this guy know how to use this >_>
+}
+return
+ 
+ButtonSS:
+{
+Run, https://www.youtube.com/watch?v=DLzxrzFCyOs&feature=youtu.be&t=43s
+GuiControl, enable, overlayActive10
+GuiControl, enable, overlayActive21
+}
+return
+ 
+ 
+ButtonH17:
+{
+Msgbox,4096, How this works, If you wanna use deflects and still use LShift as button for sprint, you can tick that feature and bind Numpad3 at "Sprint"
+}
+return
+ 
+ButtonH9:
+{
+Msgbox,0, How this works, If you cant see box on enemy, switch from fullscreen to borderless window!
+}
+return
+ 
+ButtonH8:
+{
+Msgbox,0, How this works, Auto Counter Crush works only with AutoBlock, bind left mouse button on light attack, hold C.
+}
+return
+ 
+ButtonH7:
+{
+Msgbox,0, How this works, Auto Flips for Light and Heavy attacks works only with AutoBlock, bind Numpad9 on light attack and fullblock stance, hold C.
+}
+return
+ 
+ButtonH6:
+{
+Msgbox,4096, How this works, Remove the "LShift" from sprint and change it to any button you want this very important! Bind forward on Arrow"UP", Left on Arrow"Left", Right on Arrow"Right", make sure C button not in usage in game and ur fov 81 Fullscreen, Stay close at enemy as you can! and Hold C for Deflect. Auto Deflect works only with autoblock!
+}
+return
+ 
+ButtonH5:
+{
+Msgbox,0, How this works, AutoParry works only with AutoBlock, Bind Left"ALT" on light and heavy attack also Numpad2 on "Cancel heavy attack", make sure C button not in usage in game and ur fov 81 Fullscreen, Hold C for parry.
+}
+return
+ 
+ButtonH4:
+{
+Msgbox,4096, How this works, For use Autoblock in control settings, bind Numpad4 on Left Guard, Numpad6 on Right Guard, Numpad8 on Top Guard, and make sure ur fov 81 Fullscreen. If hack, misses to much unblockables attacks, turn autoblock off.
+}
+return
+ 
+ButtonH3:
+{
+Msgbox,4096, How this works, For AutoCGBS in control settings, bind Numpad5 on Guardbrake.
+}
+return
+ 
+ButtonH:
+{
+Msgbox,0, How this works, If enabled script will dodge bashes and dodge unblockables on the last frame, [Very important] - For prevent dodge forward when you moving in front, Bind "Move Backward" - on Arrow DOWN.
+}
+return
+ 
+ButtonH2:
+{
+Msgbox,0, How this works, If on 0 script react on unblockable feints use bigger value 1,2,3 etc find perfect for u.
+}
+return
+ 
+Box_Init(N=1, C="FF0000") {
+Loop, 4
+{
+Gui_Number := 100-A_Index-(N-1)*4
+Gui, %Gui_Number%: +ToolWindow -Caption +AlwaysOnTop +E0x20
+Gui, %Gui_Number%: Color, % C
+}
+}
+Box_Draw(N, X, Y, W, H, T="1", O="I") {
+If(W < 0)
+X += W, W *= -1
+If(H < 0)
+Y += H, H *= -1
+If(T >= 2)
+{
+If(O == "O")
+X -= T, Y -= T, W += T, H += T
+If(O == "C")
+X -= T / 2, Y -= T / 2
+If(O == "I")
+W -= T, H -= T
+}
+Gui_Number := 96-(N-1)*4
+Gui, %Gui_Number%: Show, % "x" X " y" Y " w" W " h" T " NA", Horizontal 1
+Gui_Number := 98-(N-1)*4
+Gui, %Gui_Number%: Show, % "x" X " y" Y + H " w" W " h" T " NA", Horizontal 2
+Gui_Number := 97-(N-1)*4
+Gui, %Gui_Number%: Show, % "x" X " y" Y " w" T " h" H " NA", Vertical 1
+Gui_Number := 99-(N-1)*4
+Gui, %Gui_Number%: Show, % "x" X + W " y" Y " w" T " h" H " NA", Vertical 2
+}
+return
+ 
+Guiclose:
+exitapp
+return
+ 
+F1::
+SoundBeep
+GuiControlget, Pause
+GuiControlget, Pause2
+GuiControlget, Left
+GuiControlget, Right
+GuiControlget, res1
+GuiControlget, res2
+;#calculateenemybox
+x8 := (res1 / 1920) * 860
+y8 := (res2 / 1080) * 80
+x9 := (res1 / 1920) * 1075
+y9 := (res2 / 1080) * 425
+;#calculatemybox
+x18 := (res1 / 1920) * 645
+y18 := (res2 / 1080) * 300
+x19 := (res1 / 1920) * 820
+y19 := (res2 / 1080) * 510
+;#calculateenemychanges
+B55 := res1/1920
+Y55 := res2/1080
+GuiControlget, overlayActive9
+GuiControlget, overlayActive21
+GuiControlget, overlayActive20
+GuiControlget, overlayActive19
+GuiControlget, overlayActive18
+GuiControlget, overlayActive17
+GuiControlget, overlayActive16
+GuiControlget, overlayActive6
+GuiControlget, overlayActive11
+GuiControlget, overlayActive12
+GuiControlget, overlayActive4
+GuiControlget, overlayActive2
+GuiControlget, overlayActive3
+GuiControlget, overlayActive14
+GuiControlget, overlayActive8
+GuiControlget, overlayActive1
+GuiControlget, overlayActive5
+GuiControlget, overlayActive10
+GuiControlget, overlayActive15
+if(res1=0||res2=0){
+Msgbox,0, Error, Resolution cant be %res1% x %res2%, update resolution!
+reload
+}
+if(overlayActive1=0&&overlayActive14=0&&overlayActive9=0){
+Msgbox,0, Hey buddy!, First you need to choose a character
+return
+}
+Loop
+{
+GoSub Calculate
+{
+GoSub SearchBot
+}
+if(overlayActive5=1){
+GoSub AutoBlock
+}
+}
+Calculate:
+PixelSearch,Bx,By,x18,y18,x19,y19,0x058341,0,Fast|RGB
+if(ErrorLevel=0)
+box:=1
+if(ErrorLevel=1)
+box:=2
+PixelSearch,Ax,Ay,x8,y8,x9,y9,0x058341,0,Fast|RGB
+if(ErrorLevel=0&&box=2){
+;#Top
+x2 := Ax-200*B55
+y2 := Ay+10*1*Y55
+x3 := Ax+160*B55
+y3 := Ay+170*Y55
+;#Right
+x4 := Ax+5*B55
+y4 := Ay+195*Y55
+x5 := Ax+160*B55
+y5 := Ay+430*Y55
+;#Left
+x6 := Ax-200*B55
+y6 := Ay+195*Y55
+x7 := Ax-30*B55
+y7 := Ay+430*Y55
+;#GB
+x14 := Ax-520*B55
+y14 := Ay+240*Y55
+x15 := Ax-200*B55
+y15 := Ay+580*Y55
+;#GB2+LMB
+x20 := Ax-15*B55
+y20 := Ay+230*Y55
+x21 := Ax*B55
+y21 := Ay+250*Y55
+;#Unblockables
+x16 := Ax-200*B55
+y16 := Ay+10*Y55
+x17 := Ax+160*B55
+y17 := Ay+430*Y55
+GB:=1
+if(overlayActive15=1){
+Box_Init(4, "0xE425FF")
+Box_Draw(4, x16, y16, x17-x16, y17-y16)
+Box_Init(1, "0xE425FF")
+Box_Draw(1, x2, y2, x3-x2, y3-y2)
+Box_Init(5, "0xE425FF")
+Box_Draw(5, x4, y4, x5-x4, y5-y4)
+Box_Init(6, "0xE425FF")
+Box_Draw(6, x6, y6, x7-x6, y7-y6)
+}
+}
+if(ErrorLevel=0&&box=1){
+;#Top
+x2 := Ax-100*B55
+y2 := Ay+10*B55
+x3 := Ax+80*Y55
+y3 := Ay+85*Y55
+;#Right
+x4 := Ax+2.5*B55
+y4 := Ay+97.5*Y55
+x5 := Ax+80*B55
+y5 := Ay+227.7*Y55
+;#Left
+x6 := Ax-100*B55
+y6 := Ay+97.5*Y55
+x7 := Ax-15*B55
+y7 := Ay+227.7*Y55
+;#GB
+x14 := Ax-260*B55
+y14 := Ay+160*Y55
+x15 := Ax-75*B55
+y15 := Ay+362.5*Y55
+;#GB2+LMB
+x20 := Ax-7.5*B55
+y20 := Ay+115*Y55
+x21 := Ax*B55
+y21 := Ay+125*Y55
+;#Unblockables
+x16 := Ax-117.6*B55
+y16 := Ay+10*Y55
+x17 := Ax+94.11*B55
+y17 := Ay+227.7*Y55
+GB:=0
+if(overlayActive15=1){
+Box_Init(4, "0xE425FF")
+Box_Draw(4, x16, y16, x17-x16, y17-y16)
+Box_Init(1, "0xE425FF")
+Box_Draw(1, x2, y2, x3-x2, y3-y2)
+Box_Init(5, "0xE425FF")
+Box_Draw(5, x4, y4, x5-x4, y5-y4)
+Box_Init(6, "0xE425FF")
+Box_Draw(6, x6, y6, x7-x6, y7-y6)
+}
+}
+SearchBot:
+PixelSearch,px,py,x16,y16,x17,y17,0xFFCD42,0,Fast|RGB
+if(ErrorLevel = 0)
+Var1:=1
+if(ErrorLevel = 1)
+Var1:=2
+if(Var1=1){
+PixelSearch,px,py,x16,y16,x17,y17,0x4B8BF4,0,Fast|RGB
+if(ErrorLevel = 0)
+Var2:=1
+if(ErrorLevel = 1)
+Var2:=2
+PixelSearch,px,py,x16,y16,x17,y17,0xFEFEFE,0,Fast|RGB
+if(ErrorLevel = 0)
+Var3:=1
+if(ErrorLevel = 1)
+Var3:=2
+PixelSearch,px,py,x16,y16,x17,y17,0x1EA362,0,Fast|RGB
+if(ErrorLevel = 0)
+Var4:=1
+if(ErrorLevel = 1)
+Var4:=2
+if(Var2=1||Var3=1||Var4=1){
+Var10:=1
+}
+else if(Var2=2&&Var3=2&&Var4=2){
+Var10:=2
+}
+}
+if(Var1=1&&Var10=2){
+while, getkeystate("W"){
+PixelSearch,px,py,x16,y16,x17,y17,0xFFCD42,0,Fast|RGB
+if(ErrorLevel = 0){
+if(overlayActive2=1&&overlayActive9=0){
+SetKeyDelay,1
+BlockInput, On
+Send, {Down down}{Space Down}{Space Up}{Down Up}
+BlockInput, Off
+Sleep, 700
+return
+}
+if(overlayActive3=1&&overlayActive9=1){
+Send, {%hotkey1% down}{%hotkey1% Up}
+Sleep, 2000
+return
+}
+}
+}
+}
+if(Var1=1&&Var10=2){
+Sleep, Pause
+PixelSearch,px,py,x16,y16,x17,y17,0xFFCD42,0,Fast|RGB
+if(ErrorLevel = 0){
+if(overlayActive2=1){
+Send, {Space Down}{Space Up}
+if(overlayActive18=1){
+Sleep, Pause2
+Send, {LButton}
+}
+if(overlayActive8=1){
+Sleep, Pause2
+Send, {RButton}
+}
+Sleep, 700
+return
+}
+}
+}
+return
+ 
+AutoBlock:
+PixelSearch,zx,zy,x16,y16,x17,y17,0xFF3129,0,Fast|RGB
+if(Errorlevel = 0){
+if(zx > x4 and zy > y4)
+{
+RGT:=1
+}
+if(zx < x7 and zy > y4)
+{
+LFT:=1
+}
+if(zy > y2 and zy < y3)
+{
+TOP:=1
+}
+SetKeyDelay,30
+}
+if(TOP=1){
+Send, {Numpad8 Down}{Numpad8 Up}
+TOP:=0
+While, getkeystate("C"){
+PixelSearch,px,py,x16,y16,x17,y17,0xFF9A8D,0,Fast|RGB
+if(ErrorLevel = 0){
+if(overlayActive6=1&&overlayActive14=0){
+Send, {LAlt Down}{LAlt Up}
+Sleep, 850
+return
+}
+if(overlayActive6=1&&overlayActive14=1){
+Send, {LButton}
+Sleep, 500
+Send, {LButton}
+Sleep, 850
+return
+}
+if(overlayActive12=1){
+Send, {%hotkey1% down}{%hotkey1% Up}
+Sleep, 2000
+return
+}
+if(overlayActive11=1){
+SetKeyDelay,1
+BlockInput, On
+Send, {W Up}{S Up}{A Up}{D Up}
+Send, {Up Down}{Space Down}{Space Up}{Up Up}
+BlockInput, Off
+if(overlayActive16=1){
+Sleep, 70
+Send, {LButton}
+Sleep, 750
+}
+if(overlayActive17=1){
+Sleep, 70
+Send, {RButton}
+Sleep, 750
+}
+if(overlayActive20=1){
+Sleep, 70
+Send, {%hotkey2% down}{%hotkey2% Up}
+Sleep, 750
+}
+Sleep, 600
+return
+}
+if(overlayActive4=1){
+Send, {LButton}
+Sleep, 1200
+return
+}
+}
+}
+}
+if(LFT=1){
+Send, {Numpad4 Down}{Numpad4 Up}
+LFT:=0
+While, getkeystate("C"){
+PixelSearch,px,py,x16,y16,x17,y17,0xFF9A8D,0,Fast|RGB
+if(ErrorLevel = 0){
+if(overlayActive6=1){
+Send, {LAlt Down}{LAlt Up}
+Sleep, 850
+return
+}
+if(overlayActive12=1){
+Send, {%hotkey1% down}{%hotkey1% Up}
+Sleep, 2000
+return
+}
+if(overlayActive11=1){
+SetKeyDelay,1
+BlockInput, On
+Send, {W Up}{S Up}{A Up}{D Up}
+Sleep, Left
+Send, {Left Down}{Space Down}{Space Up}{Left Up}
+BlockInput, Off
+if(overlayActive16=1){
+Send, {LButton}
+Sleep, 750
+}
+if(overlayActive17=1){
+Sleep, 70
+Send, {RButton}
+Sleep, 750
+}
+if(overlayActive20=1){
+Sleep, 70
+Send, {%hotkey2% down}{%hotkey2% Up}
+Sleep, 750
+}
+Sleep, 600
+return
+}
+if(overlayActive4=1){
+Send, {LButton}
+Sleep, 1200
+return
+}
+}
+}
+}
+if(RGT=1){
+Send, {Numpad6 Down}{Numpad6 Up}
+RGT:=0
+While, getkeystate("C"){
+PixelSearch,px,py,x16,y16,x17,y17,0xFF9A8D,0,Fast|RGB
+if(ErrorLevel = 0){
+if(overlayActive6=1){
+Send, {LAlt Down}{LAlt Up}
+Sleep, 850
+return
+}
+if(overlayActive12=1){
+Send, {%hotkey1% down}{%hotkey1% Up}
+Sleep, 2000
+return
+}
+if(overlayActive11=1){
+SetKeyDelay,1
+BlockInput, On
+Send, {W Up}{S Up}{A Up}{D Up}
+Sleep, Right
+Send, {Right Down}{Space Down}{Space Up}{Right Up}
+BlockInput, Off
+if(overlayActive16=1){
+Sleep, 70
+Send, {LButton}
+Sleep, 750
+}
+if(overlayActive17=1){
+Sleep, 70
+Send, {RButton}
+Sleep, 750
+}
+if(overlayActive20=1){
+Sleep, 70
+Send, {%hotkey2% down}{%hotkey2% Up}
+Sleep, 750
+}
+Sleep, 600
+return
+}
+if(overlayActive4=1){
+Send, {LButton}
+Sleep, 1200
+return
+}
+}
+}
+}
+if(overlayActive10=1){
+PixelSearch,px,py,x14,y14,x15,y15,0xFF1F1A,0,Fast|RGB
+if(ErrorLevel = 0)
+CGB:=1
+if(ErrorLevel = 1)
+CGB:=2
+}
+if(GB=1&&overlayActive21=1){
+PixelSearch,px,py,x20,y20,x21,y21,0xFA1F1A,10,Fast|RGB
+if(ErrorLevel = 0)
+CGB2:=1
+if(ErrorLevel = 1)
+CGB2:=2
+}
+if(CGB=1){
+SetKeyDelay,30
+Send, {%hotkey2% down}{%hotkey2% Up}
+Sleep, 700
+return
+}
+if(CGB2=1){
+SetKeyDelay,30
+Send, {LButton}
+Sleep, 700
+return
+}
+return
+ 
+;#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
+ 
+~LShift::
+if(overlayActive19=1){
+OutVar:=GetKeyState("LShift")
+if(OutVar=1){
+Send, {Numpad3 Down}{Numpad3 Up}
+}
+}
+return
+ 
+~F2::
+GuiControlget, overlayActive2
+if(overlayActive2=1){
+GuiControl,,overlayActive2, 0
+SoundPlay, %A_WorkingDir%\buttonunclick.wav
+}
+if(overlayActive2=0){
+GuiControl,,overlayActive2, 1
+SoundPlay, %A_WorkingDir%\buttonclick.wav
+}
+GuiControlget, overlayActive2
+return
+ 
+~Numpad1::
+Pause:=0
+SoundPlay, %A_WorkingDir%\buttonunclick.wav
+return
+ 
+~Numpad2::
+Pause:=80
+SoundPlay, %A_WorkingDir%\buttonclick.wav
+return
+ 
+~Numpad7::
+GuiControlget, overlayActive21
+if(overlayActive21=1){
+GuiControl,,overlayActive21, 0
+SoundPlay, %A_WorkingDir%\buttonunclick.wav
+}
+if(overlayActive21=0){
+GuiControl,,overlayActive21, 1
+SoundPlay, %A_WorkingDir%\buttonclick.wav
+}
+GuiControlget, overlayActive21
+return
+ 
+~Z::
+pause
+SoundPlay, %A_WorkingDir%\buttonclick.wav
+return
+ 
+~F4::
+pause
+SoundPlay, %A_WorkingDir%\buttonclick.wav
+return
